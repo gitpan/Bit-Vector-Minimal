@@ -7,7 +7,7 @@ use warnings;
 
 use Carp;
 
-our $VERSION = '1.1';
+our $VERSION = '1.2';
 
 =head1 NAME
 
@@ -60,7 +60,11 @@ sub new {
 	my $slots = $self->{size} / $self->{width};
 	croak "Cowardly refusing to store $slots items in a vector"
 		unless $slots == int($slots);
-	$self->{pattern} = "\0" x ($self->{size} / 8);
+	my $num_bytes =
+		$self->{size} % 8
+		? (($self->{size} + (8 - $self->{size} % 8)) / 8)
+		: ($self->{size} / 8);
+	$self->{pattern} = "\0" x $num_bytes;
 	return $self;
 }
 

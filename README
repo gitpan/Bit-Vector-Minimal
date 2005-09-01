@@ -2,12 +2,12 @@ NAME
     Bit::Vector::Minimal - Object-oriented wrapper around vec()
 
 SYNOPSIS
-      use Bit::Vector::Minimal;
-      my $vec = new Bit::Vector (size => 8, width => 1, endianness => "little");
-                                 # These are the defaults
+            use Bit::Vector::Minimal;
+            my $vec = Bit::Vector->new(size => 8, width => 1, endianness => "little");
+            # These are the defaults
 
-      $vec->set(1); # $vec's internal vector now looks like "00000010"
-      $vec->get(3); # 0
+            $vec->set(1); # $vec's internal vector now looks like "00000010"
+            $vec->get(3); # 0
 
 DESCRIPTION
     This is a much simplified, lightweight version of Bit::Vector, and wraps
@@ -31,14 +31,20 @@ METHODS
   get(POS)
     Returns the bit or slot at position "POS".
 
+AUTHOR
+    Original author: Simon Cozens
+
+    Current maintainer: Tony Bowden
+
+BUGS and QUERIES
+    Please direct all correspondence regarding this module to:
+    bug-Bit-Vector-Minimal@rt.cpan.org
+
 SEE ALSO
     Bit::Vector
 
-AUTHOR
-    Simon Cozens, <simon@kasei.com>
-
 COPYRIGHT AND LICENSE
-    Copyright 2003 by Kasei
+    Copyright 2003, 2004 by Kasei
 
     This library is free software; you can redistribute it and/or modify it
     under the same terms as Perl itself.
