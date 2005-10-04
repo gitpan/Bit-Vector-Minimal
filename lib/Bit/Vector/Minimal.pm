@@ -7,7 +7,7 @@ use warnings;
 
 use Carp;
 
-our $VERSION = '1.2';
+our $VERSION = '1.3';
 
 =head1 NAME
 
@@ -15,12 +15,12 @@ Bit::Vector::Minimal - Object-oriented wrapper around vec()
 
 =head1 SYNOPSIS
 
-	use Bit::Vector::Minimal;
-	my $vec = Bit::Vector->new(size => 8, width => 1, endianness => "little");
-	# These are the defaults
+  use Bit::Vector::Minimal;
+  my $vec = Bit::Vector->new(size => 8, width => 1, endianness => "little");
+  # These are the defaults
 
-	$vec->set(1); # $vec's internal vector now looks like "00000010"
-	$vec->get(3); # 0
+  $vec->set(1); # $vec's internal vector now looks like "00000010"
+  $vec->get(3); # 0
 
 =head1 DESCRIPTION
 
@@ -77,9 +77,7 @@ on" if C<VALUE> is not given.
 
 sub set {
 	my ($self, $pos, $value) = @_;
-	if (!defined $value) {
-		$value = 2**$self->{width} - 1;
-	}
+	$value = 2**$self->{width} - 1 unless defined $value;
 	$pos = 1 + $self->{width} - $pos if $self->{endianness} eq "big";
 	vec($self->{pattern}, $pos, $self->{width}) = $value;
 }
@@ -96,16 +94,22 @@ sub get {
 	return vec($self->{pattern}, $pos, $self->{width});
 }
 
-sub display {    # For debugging
+=head2 display
+
+Display the vector. For debugging purposes.
+
+=cut
+
+sub display { 
 	my $self = shift;
-	return join "", map { sprintf("%08b", ord $_) } split //, $self->{pattern};
+	return join "", map sprintf("%08b", ord $_), split //, $self->{pattern};
 }
 
 =head1 AUTHOR
 
-Original author: Simon Cozens
-
 Current maintainer: Tony Bowden
+
+Original author: Simon Cozens
 
 =head1 BUGS and QUERIES
 
